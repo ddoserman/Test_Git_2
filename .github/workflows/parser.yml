@@ -1,16 +1,17 @@
-name: Run finn
+name: Finn Car Parser
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *" # каждые 6 часов
+    - cron: "0 */6 * * *"   # каждые 6 часов
+  workflow_dispatch:        # можно запускать вручную
 
 jobs:
-  build:
+  run-script:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -19,16 +20,19 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install playwright requests
-
-      - name: Install Playwright browsers
-        run: |
           playwright install chromium
 
       - name: Run parser
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python main.py
+
+      - name: Save state files (seen_ads.json + ads_log.txt)
         run: |
-          python main.py
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add seen_ads.json ads_log.txt || true
+          git commit -m "update state files" || true
+          git push
