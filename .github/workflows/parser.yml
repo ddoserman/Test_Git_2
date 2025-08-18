@@ -43,7 +43,7 @@ jobs:
 
       - name: Run parser
         run: |
-          python car_parser.py
+          python main.py
 
       - name: Commit updated state (seen_ads.json, ads_log.txt)
         if: always()
