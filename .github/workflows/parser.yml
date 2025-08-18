@@ -1,4 +1,4 @@
-name: Run Car Parser
+name: Run Car Parser2
 
 on:
   workflow_dispatch: {}
