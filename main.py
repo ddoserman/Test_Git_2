@@ -1,3 +1,4 @@
+# main.py
 import asyncio
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
 import requests
@@ -6,18 +7,12 @@ import re
 import datetime
 import os
 
-# Загружаем креды
-with open("credentials.json", "r", encoding="utf-8") as f:
-    creds = json.load(f)
+# Берем токены из переменных окружения (для GitHub Actions)
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
-TELEGRAM_TOKEN = creds["telegram"]["token"]
-TELEGRAM_CHAT_ID = creds["telegram"]["chat_id"]  # <- теперь берем из creds
-
-# Проверка токена и чата
-if not TELEGRAM_TOKEN or len(TELEGRAM_TOKEN) < 10:
-    print("⚠️ Проверьте TELEGRAM_TOKEN")
-if not str(TELEGRAM_CHAT_ID).lstrip("-").isdigit():
-    print("⚠️ Проверьте TELEGRAM_CHAT_ID: должен быть числом (для группы начинается с '-')")
+if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
+    raise ValueError("Не заданы TELEGRAM_TOKEN или TELEGRAM_CHAT_ID")
 
 SEARCH_URL = (
     "https://www.finn.no/mobility/search/car?"
@@ -27,19 +22,17 @@ SEARCH_URL = (
 )
 
 # Чтение истории
-seen_ads_file = "seen_ads.json"
-if os.path.exists(seen_ads_file):
-    try:
-        with open(seen_ads_file, "r", encoding="utf-8") as f:
-            seen_ads = set(json.load(f))
-    except json.JSONDecodeError:
-        seen_ads = set()
-else:
+seen_ads_path = "seen_ads.json"
+try:
+    with open(seen_ads_path, "r", encoding="utf-8") as f:
+        seen_ads = set(json.load(f))
+except (FileNotFoundError, json.JSONDecodeError):
     seen_ads = set()
 
 # Логирование
 def log_event(text: str):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"{timestamp} | {text}")
     with open("ads_log.txt", "a", encoding="utf-8") as log_file:
         log_file.write(f"{timestamp} | {text}\n")
 
@@ -72,7 +65,11 @@ async def parse_listings(page):
         year = year_match.group(0) if year_match else "Год не указан"
 
         mileage_match = re.search(r'([\d\s\u00a0]+) km', info_text)
-        mileage = f"{int(re.sub(r'[^\d]', '', mileage_match.group(1))):,} km".replace(",", " ") if mileage_match else "Пробег не указан"
+        if mileage_match:
+            mileage_value = re.sub(r"[^\d]", "", mileage_match.group(1))
+            mileage = f"{int(mileage_value):,} km".replace(",", " ")
+        else:
+            mileage = "Пробег не указан"
 
         price_el = await article.query_selector("span.t3.font-bold")
         if price_el:
@@ -116,22 +113,19 @@ def send_to_telegram(ad, manual_removed=False):
     )
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     try:
-        resp = requests.post(url, data={"chat_id": TELEGRAM_CHAT_ID, "text": message})
-        log_event(f"Отправка в Telegram:\n{message}\nHTTP статус: {resp.status_code}\nОтвет API: {resp.text}")
-        if resp.status_code != 200:
-            print(f"❌ Ошибка Telegram: {resp.status_code} {resp.text}")
-        else:
-            print(f"✅ Сообщение отправлено: {ad['title']}")
+        response = requests.post(url, data={"chat_id": TELEGRAM_CHAT_ID, "text": message})
+        if response.status_code != 200:
+            print(f"Ошибка Telegram: {response.text}")
+        log_event(f"🚗 {ad['title']} | {ad['year']} | {ad['price']} | {ad['mileage']} | {ad['warranty']} | {ad['link']}")
     except Exception as e:
-        log_event(f"Ошибка отправки в Telegram: {e}")
-        print(f"❌ Исключение при отправке в Telegram: {e}")
+        print(f"Ошибка отправки в Telegram: {e}")
 
 async def check_ads():
     global seen_ads
     previous_seen = seen_ads.copy()
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(headless=True)  # headless для Actions
         context = await browser.new_context()
         page = await context.new_page()
         await page.goto(SEARCH_URL)
@@ -162,23 +156,21 @@ async def check_ads():
 
     if not new_ads:
         msg = f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M')} - Новых объявлений нет."
-        try:
-            resp = requests.post(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-                                 data={"chat_id": TELEGRAM_CHAT_ID, "text": msg})
-            log_event(f"{msg}\nHTTP статус: {resp.status_code}\nОтвет API: {resp.text}")
-        except Exception as e:
-            print(f"❌ Ошибка уведомления о новых объявлениях: {e}")
+        response = requests.post(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+            data={"chat_id": TELEGRAM_CHAT_ID, "text": msg}
+        )
+        if response.status_code != 200:
+            print(f"Ошибка Telegram: {response.text}")
+        log_event("Новых объявлений нет.")
 
-    with open(seen_ads_file, "w", encoding="utf-8") as f:
+    with open(seen_ads_path, "w", encoding="utf-8") as f:
         json.dump(list(seen_ads), f, ensure_ascii=False, indent=2)
 
     print("Готово ✅")
 
 async def main():
-    while True:
-        await check_ads()
-        print("⏳ Ожидаем 7 часов до следующей проверки...")
-        await asyncio.sleep(25200)  # 7 часов
+    await check_ads()  # Для GitHub Actions запускаем один раз
 
 if __name__ == "__main__":
     asyncio.run(main())
