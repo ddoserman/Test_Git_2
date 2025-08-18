@@ -1,22 +1,17 @@
 import asyncio
-from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
-import requests
+import os
 import json
 import re
 import datetime
-import sys
+import requests
+from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
 
-# === Загрузка токена из credentials.json ===
-try:
-    with open("credentials.json", "r", encoding="utf-8") as f:
-        creds = json.load(f)
-    TELEGRAM_TOKEN = creds["telegram"]["token"]
-except Exception as e:
-    print(f"❌ Не удалось прочитать credentials.json или ключ 'telegram.token': {e}")
-    sys.exit(2)
+# Токен и чат из окружения (GitHub Secrets)
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
-# Фиксированный chat_id, как ты указал
-TELEGRAM_CHAT_ID = "-4851606651"
+if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
+    raise ValueError("Не указаны TELEGRAM_TOKEN или TELEGRAM_CHAT_ID в переменных окружения")
 
 SEARCH_URL = (
     "https://www.finn.no/mobility/search/car?"
@@ -32,23 +27,13 @@ try:
 except (FileNotFoundError, json.JSONDecodeError):
     seen_ads = set()
 
+# Логирование
 def log_event(text: str):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open("ads_log.txt", "a", encoding="utf-8") as log_file:
         log_file.write(f"{timestamp} | {text}\n")
 
 async def parse_listings(page):
-    # дождаться загрузки основного контента
-    try:
-        await page.wait_for_load_state("networkidle", timeout=15000)
-    except PlaywrightTimeoutError:
-        pass
-
-    # иногда лендинг подгружает карточки после скролла
-    for _ in range(5):
-        await page.keyboard.press("PageDown")
-        await page.wait_for_timeout(800)
-
     articles = await page.query_selector_all("article")
     ads = []
 
@@ -57,8 +42,6 @@ async def parse_listings(page):
         if not link_tag:
             continue
         href = await link_tag.get_attribute("href")
-        if not href:
-            continue
         if not href.startswith("http"):
             href = "https://www.finn.no" + href
 
@@ -74,7 +57,6 @@ async def parse_listings(page):
 
         info_el = await article.query_selector("span.text-caption.font-bold")
         info_text = (await info_el.inner_text()).strip() if info_el else ""
-
         year_match = re.search(r'\b(20\d{2}|19\d{2})\b', info_text)
         year = year_match.group(0) if year_match else "Год не указан"
 
@@ -127,9 +109,8 @@ def send_to_telegram(ad, manual_removed=False):
     )
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     try:
-        r = requests.post(url, data={"chat_id": TELEGRAM_CHAT_ID, "text": message}, timeout=15)
-        r.raise_for_status()
-        log_event(f"🚗 {ad['title']} | {ad['year']} | {ad['price']} | {ad['mileage']} | {ad['warranty']} | {ad['link']}")
+        resp = requests.post(url, data={"chat_id": TELEGRAM_CHAT_ID, "text": message})
+        log_event(f"Отправлено: {message} | статус {resp.status_code} | ответ {resp.text}")
     except Exception as e:
         print(f"Ошибка отправки в Telegram: {e}")
 
@@ -138,22 +119,23 @@ async def check_ads():
     previous_seen = seen_ads.copy()
 
     async with async_playwright() as p:
-        # headless + --no-sandbox критичны для GitHub Actions
-        browser = await p.chromium.launch(headless=True, args=["--no-sandbox"])
+        browser = await p.chromium.launch(headless=True)
         context = await browser.new_context()
         page = await context.new_page()
-        await page.goto(SEARCH_URL, wait_until="domcontentloaded")
+        await page.goto(SEARCH_URL)
 
-        # Куки-баннер в iframe
         try:
             await page.wait_for_selector("iframe[src*='consent']", timeout=5000)
             frame = page.frame_locator("iframe[src*='consent']")
-            # Кнопка по имени (норвежский вариант)
             await frame.get_by_role("button", name="Godta alle").click(timeout=3000)
             print("✅ Куки приняты (Godta alle)")
-            await page.wait_for_timeout(1500)
+            await page.wait_for_timeout(2000)
         except PlaywrightTimeoutError:
-            print("⚠️ Баннер куки не найден/не загрузился — продолжаем")
+            print("⚠️ Баннер куки не найден")
+
+        for _ in range(5):
+            await page.keyboard.press("PageDown")
+            await page.wait_for_timeout(1000)
 
         ads = await parse_listings(page)
         await browser.close()
@@ -168,20 +150,19 @@ async def check_ads():
 
     if not new_ads:
         msg = f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M')} - Новых объявлений нет."
-        try:
-            requests.post(
-                f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-                data={"chat_id": TELEGRAM_CHAT_ID, "text": msg},
-                timeout=15
-            )
-        except Exception as e:
-            print(f"Ошибка отправки статуса в Telegram: {e}")
-        log_event("Новых объявлений нет.")
+        resp = requests.post(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+            data={"chat_id": TELEGRAM_CHAT_ID, "text": msg}
+        )
+        log_event(f"Новых объявлений нет | статус {resp.status_code} | ответ {resp.text}")
 
     with open("seen_ads.json", "w", encoding="utf-8") as f:
         json.dump(list(seen_ads), f, ensure_ascii=False, indent=2)
 
     print("Готово ✅")
 
+async def main():
+    await check_ads()  # один раз, для ручного запуска
+
 if __name__ == "__main__":
-    asyncio.run(check_ads())
+    asyncio.run(main())
