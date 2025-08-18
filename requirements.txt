@@ -1,0 +1,6 @@
+selenium
+beautifulsoup4
+python-telegram-bot==20.3
+flask
+webdriver-manager
+requests

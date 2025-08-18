@@ -1,0 +1,87 @@
+2025-08-17 17:32:28,842 [WARNING] ⚠️ Кнопка 'Godta alle' не найдена
+2025-08-17 17:32:28,904 [INFO] ✅ Новое объявление найдено: Toyota Avensis (https://www.finn.no/mobility/item/421631991)
+2025-08-17 17:32:28,937 [INFO] ✅ Новое объявление найдено: Suzuki Grand Vitara (https://www.finn.no/mobility/item/422399480)
+2025-08-17 17:32:28,965 [INFO] ✅ Новое объявление найдено: Hyundai i20 (https://www.finn.no/mobility/item/422406559)
+2025-08-17 17:32:28,991 [INFO] ✅ Новое объявление найдено: Peugeot Partner (https://www.finn.no/mobility/item/417213673)
+2025-08-17 17:32:29,017 [INFO] ✅ Новое объявление найдено: BMW 3-serie (https://www.finn.no/mobility/item/422376102)
+2025-08-17 17:32:29,055 [INFO] ✅ Новое объявление найдено: BMW 1-serie (https://www.finn.no/mobility/item/422403875)
+2025-08-17 17:32:29,109 [INFO] ✅ Новое объявление найдено: Volkswagen Golf (https://www.finn.no/mobility/item/422408636)
+2025-08-17 17:32:29,174 [INFO] ✅ Новое объявление найдено: Volkswagen Golf Alltrack (https://www.finn.no/mobility/item/422409105)
+2025-08-17 17:32:29,225 [INFO] ✅ Новое объявление найдено: Kia e-Niro (https://www.finn.no/mobility/item/422405657)
+2025-08-17 17:32:29,271 [INFO] ✅ Новое объявление найдено: Audi Q3 (https://www.finn.no/mobility/item/422408528)
+2025-08-17 17:32:29,307 [INFO] ✅ Новое объявление найдено: BMW X5 (https://www.finn.no/mobility/item/422407019)
+2025-08-17 17:32:29,341 [INFO] ✅ Новое объявление найдено: Audi e-tron (https://www.finn.no/mobility/item/422408961)
+2025-08-17 17:32:29,364 [INFO] ✅ Новое объявление найдено: BMW 3-serie (https://www.finn.no/mobility/item/422404022)
+2025-08-17 17:32:29,387 [INFO] ✅ Новое объявление найдено: Volkswagen ID.3 (https://www.finn.no/mobility/item/422407427)
+2025-08-17 17:32:29,408 [INFO] ✅ Новое объявление найдено: Audi RS3 (https://www.finn.no/mobility/item/422408813)
+2025-08-17 17:32:29,429 [INFO] ✅ Новое объявление найдено: Volkswagen Polo (https://www.finn.no/mobility/item/422408545)
+2025-08-17 17:32:29,451 [INFO] ✅ Новое объявление найдено: Volkswagen Passat (https://www.finn.no/mobility/item/422408195)
+2025-08-17 17:32:29,480 [INFO] ✅ Новое объявление найдено: Toyota Land Cruiser (https://www.finn.no/mobility/item/421813318)
+2025-08-17 17:32:29,522 [INFO] ✅ Новое объявление найдено: Volkswagen Golf (https://www.finn.no/mobility/item/422408342)
+2025-08-17 17:32:29,559 [INFO] ✅ Новое объявление найдено: Volkswagen Golf (https://www.finn.no/mobility/item/422408245)
+2025-08-17 17:32:29,595 [INFO] ✅ Новое объявление найдено: Peugeot 206 (https://www.finn.no/mobility/item/411669753)
+2025-08-17 17:32:29,621 [INFO] ✅ Новое объявление найдено: BMW 1-serie (https://www.finn.no/mobility/item/422258049)
+2025-08-17 17:32:29,654 [INFO] ✅ Новое объявление найдено: Lexus Andre (https://www.finn.no/mobility/item/419184427)
+2025-08-17 17:32:29,685 [INFO] ✅ Новое объявление найдено: Ford Mondeo (https://www.finn.no/mobility/item/422407720)
+2025-08-17 17:32:29,731 [INFO] ✅ Новое объявление найдено: Hyundai Kona (https://www.finn.no/mobility/item/422407930)
+2025-08-17 17:32:29,775 [INFO] ✅ Новое объявление найдено: Volkswagen ID.4 (https://www.finn.no/mobility/item/422407141)
+2025-08-17 17:32:29,817 [INFO] ✅ Новое объявление найдено: Skoda Kodiaq (https://www.finn.no/mobility/item/422407322)
+2025-08-17 17:32:29,848 [INFO] ✅ Новое объявление найдено: MINI Cooper (https://www.finn.no/mobility/item/422407568)
+2025-08-17 17:32:29,879 [INFO] ✅ Новое объявление найдено: Skoda Roomster (https://www.finn.no/mobility/item/422407286)
+2025-08-17 17:32:29,912 [INFO] ✅ Новое объявление найдено: Mazda CX-5 (https://www.finn.no/mobility/item/422407594)
+2025-08-17 17:32:29,942 [INFO] ✅ Новое объявление найдено: Volkswagen Passat (https://www.finn.no/mobility/item/422404791)
+2025-08-17 17:32:29,977 [INFO] ✅ Новое объявление найдено: Volkswagen Golf (https://www.finn.no/mobility/item/422406410)
+2025-08-17 17:32:30,000 [INFO] ✅ Новое объявление найдено: Volkswagen Golf (https://www.finn.no/mobility/item/422394977)
+2025-08-17 17:32:30,022 [INFO] ✅ Новое объявление найдено: Ford Fiesta (https://www.finn.no/mobility/item/422394038)
+2025-08-17 17:32:30,044 [INFO] ✅ Новое объявление найдено: Volkswagen Touran (https://www.finn.no/mobility/item/422407005)
+2025-08-17 17:32:30,071 [INFO] ✅ Новое объявление найдено: Audi e-tron (https://www.finn.no/mobility/item/422406841)
+2025-08-17 17:32:30,092 [INFO] ✅ Новое объявление найдено: BMW 2-serie (https://www.finn.no/mobility/item/422400324)
+2025-08-17 17:32:30,113 [INFO] ✅ Новое объявление найдено: Renault Zoe (https://www.finn.no/mobility/item/422315049)
+2025-08-17 17:32:30,154 [INFO] ✅ Новое объявление найдено: Tesla Model Y (https://www.finn.no/mobility/item/422393782)
+2025-08-17 17:32:30,185 [INFO] ✅ Новое объявление найдено: Honda CR-V (https://www.finn.no/mobility/item/422406603)
+2025-08-17 17:32:30,222 [INFO] ✅ Новое объявление найдено: Kia e-Niro (https://www.finn.no/mobility/item/422406104)
+2025-08-17 17:32:30,250 [INFO] ✅ Новое объявление найдено: Audi A3 (https://www.finn.no/mobility/item/422406146)
+2025-08-17 17:32:30,272 [INFO] ✅ Новое объявление найдено: Mitsubishi Grandis (https://www.finn.no/mobility/item/406857100)
+2025-08-17 17:32:30,292 [INFO] ✅ Новое объявление найдено: Mercedes-Benz A-Klasse (https://www.finn.no/mobility/item/422405639)
+2025-08-17 17:32:30,313 [INFO] ✅ Новое объявление найдено: Skoda Octavia (https://www.finn.no/mobility/item/422405667)
+2025-08-17 17:32:30,335 [INFO] ✅ Новое объявление найдено: Peugeot 5008 (https://www.finn.no/mobility/item/422405976)
+2025-08-17 17:32:30,355 [INFO] ✅ Новое объявление найдено: Cupra Born (https://www.finn.no/mobility/item/422405819)
+2025-08-17 17:32:30,382 [INFO] ✅ Новое объявление найдено: Audi Q3 (https://www.finn.no/mobility/item/422405344)
+2025-08-17 17:32:30,413 [INFO] ✅ Новое объявление найдено: Skoda Superb (https://www.finn.no/mobility/item/422405522)
+2025-08-17 17:32:30,454 [INFO] ✅ Новое объявление найдено: Volvo V60 (https://www.finn.no/mobility/item/422405042)
+2025-08-17 17:32:30,481 [INFO] ✅ Новое объявление найдено: Audi Q3 (https://www.finn.no/mobility/item/422405178)
+2025-08-17 17:32:30,645 [INFO] HTTP Request: POST https://api.telegram.org/bot%D0%A2%D0%9E%D0%9A%D0%95%D0%9D_%D0%91%D0%9E%D0%A2%D0%90/sendMessage "HTTP/1.1 404 Not Found"
+2025-08-17 17:37:34 | 🚗 Volkswagen Golf | 2017 | 199 000 kr | 80 100 km | https://www.finn.no/mobility/item/419107784
+2025-08-17 17:47:44 | 🚗 Toyota Auris | 2017 | 169 500 kr | 99 500 km | https://www.finn.no/mobility/item/422377358
+2025-08-17 17:47:44 | 🚗 Toyota C-HR | 2017 | 199 000 kr | 101 000 km | https://www.finn.no/mobility/item/421442469
+2025-08-17 17:47:45 | 🚗 Volkswagen Polo | 2018 | 169 900 kr | 82 000 km | https://www.finn.no/mobility/item/421438748
+2025-08-17 17:47:45 | 🚗 Volkswagen Passat | 2017 | 189 000 kr | 91 246 km | https://www.finn.no/mobility/item/421284060
+2025-08-17 17:47:45 | 🚗 Volkswagen Golf | 2017 | 159 900 kr | 94 746 km | https://www.finn.no/mobility/item/421266469
+2025-08-17 17:47:45 | 🚗 Toyota Corolla | 2022 | 195 343 kr | 76 771 km | https://www.finn.no/mobility/item/421139458
+2025-08-17 17:47:45 | 🚗 Toyota Auris | 2017 | 186 900 kr | 106 000 km | https://www.finn.no/mobility/item/420954669
+2025-08-17 17:47:45 | 🚗 Kia Niro | 2018 | 179 000 kr | 114 000 km | https://www.finn.no/mobility/item/420692396
+2025-08-17 17:47:45 | 🚗 Toyota Auris | 2018 | 185 000 kr | 95 000 km | https://www.finn.no/mobility/item/420687437
+2025-08-17 17:47:46 | 🚗 Volkswagen Polo | 2019 | 199 000 kr | 62 500 km | https://www.finn.no/mobility/item/420502345
+2025-08-17 17:47:46 | 🚗 Toyota Auris | 2017 | 189 000 kr | 66 000 km | https://www.finn.no/mobility/item/420351033
+2025-08-17 17:47:46 | 🚗 Volkswagen Passat | 2018 | 199 900 kr | 116 580 km | https://www.finn.no/mobility/item/419129203
+2025-08-17 17:47:46 | 🚗 Volkswagen Golf | 2017 | 199 000 kr | 80 100 km | https://www.finn.no/mobility/item/419107784
+2025-08-17 17:47:46 | 🚗 Kia Optima | 2018 | 194 900 kr | 93 000 km | https://www.finn.no/mobility/item/418549072
+2025-08-17 17:47:46 | 🚗 Kia Niro | 2018 | 159 000 kr | 104 000 km | https://www.finn.no/mobility/item/417982992
+2025-08-17 17:47:46 | 🚗 Toyota Corolla | 2020 | 199 000 kr | 96 400 km | https://www.finn.no/mobility/item/417882110
+2025-08-17 17:47:47 | 🚗 Volkswagen Golf | 2018 | 199 000 kr | 99 000 km | https://www.finn.no/mobility/item/417258137
+2025-08-17 17:47:47 | 🚗 Kia Niro | 2017 | 199 000 kr | 59 000 km | https://www.finn.no/mobility/item/416061266
+2025-08-17 17:47:47 | 🚗 Kia Optima | 2018 | 180 000 kr | 79 000 km | https://www.finn.no/mobility/item/414641123
+2025-08-17 17:47:47 | 🚗 Kia Niro | 2017 | 199 900 kr | 76 552 km | https://www.finn.no/mobility/item/413311774
+2025-08-17 17:47:47 | 🚗 Volkswagen Golf | 2018 | 199 900 kr | 102 000 km | https://www.finn.no/mobility/item/402417993
+2025-08-17 18:12:03 | 🚗 Toyota Corolla | 2022 | 195 343 kr | 76 771 km | Гарантия не указана | https://www.finn.no/mobility/item/421139458
+2025-08-17 18:12:04 | 🚗 Toyota Auris | 2017 | 189 000 kr | 66 000 km | 120 måneder garanti | https://www.finn.no/mobility/item/420351033
+2025-08-17 18:25:27 | 🚗 Kia Niro | 2017 | 199 000 kr | 59 000 km | 12 месяцев | https://www.finn.no/mobility/item/416061266
+2025-08-17 18:29:30 | Новых объявлений нет.
+2025-08-17 18:52:36 | Новых объявлений нет.
+2025-08-17 18:55:16 | Новых объявлений нет.
+2025-08-17 18:56:26 | 🚗 Volkswagen Golf | 2018 | 199 900 kr | 102 000 km | не указана | https://www.finn.no/mobility/item/402417993
+2025-08-17 18:57:15 | Новых объявлений нет.
+2025-08-17 18:57:46 | Новых объявлений нет.
+2025-08-17 20:27:32 | Новых объявлений нет.
+2025-08-17 20:46:04 | 🚗 Volkswagen Golf | 2017 | 199 000 kr | 80 100 km | не указана | https://www.finn.no/mobility/item/419107784
+2025-08-18 09:50:56 | Новых объявлений нет.
