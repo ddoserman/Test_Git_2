@@ -1,38 +1,58 @@
 name: Run Car Parser
 
 on:
-  workflow_dispatch:  # запуск вручную с GitHub
-  schedule:
-    - cron: "0 7,17 * * *"  # запуск каждый день в 07:00 и 17:00 (UTC)
+  workflow_dispatch: {}
+  # Раскомментируй при желании запуск по расписанию (UTC):
+  # schedule:
+  #   - cron: "0 7,17 * * *"
+
+permissions:
+  contents: write
 
 jobs:
   run:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install dependencies (Playwright + Chromium)
         run: |
+          pip install --upgrade pip
           pip install playwright requests
+          playwright install-deps
           playwright install chromium
 
-      - name: Run script
+      - name: Create credentials.json from secret
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python - << 'PY'
+          import os, json
+          data = {"telegram": {"token": os.environ["TELEGRAM_TOKEN"]}}
+          with open("credentials.json", "w", encoding="utf-8") as f:
+              json.dump(data, f, ensure_ascii=False)
+          print("credentials.json создан")
+          PY
+
+      - name: Run parser
         run: |
           python car_parser.py
 
-      - name: Commit updated files
+      - name: Commit updated state (seen_ads.json, ads_log.txt)
+        if: always()
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add seen_ads.json ads_log.txt || true
-          git commit -m "Update seen ads" || true
-          git push
+          # Подтягиваем последние изменения на ветке
+          git pull --rebase origin "${{ github.ref_name }}" || true
+          # Добавляем/коммитим только если есть изменения
+          git add seen_ads.json ads_log.txt 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "Update seen ads/log [skip ci]"
+          git push origin "${{ github.ref_name }}" || true
