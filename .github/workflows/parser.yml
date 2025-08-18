@@ -1,4 +1,4 @@
-name: Car Parser
+name: Finn
 
 on:
   schedule:
