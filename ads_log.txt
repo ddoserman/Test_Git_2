@@ -131,3 +131,5 @@
 2025-08-27 18:14:26 | 🚗 Kia Optima | 2018 | 179 000 kr | 109 000 km | не указана | https://www.finn.no/mobility/item/424109471
 2025-08-28 00:47:34 | 🚗 Toyota Corolla | 2019 | 199 000 kr | 105 900 km | 3 месяцев | https://www.finn.no/mobility/item/424181431
 2025-08-28 06:16:05 | Новых объявлений нет.
+2025-08-28 12:20:00 | 🚗 Kia Niro | 2019 | 199 000 kr | 76 200 km | 1 месяцев | https://www.finn.no/mobility/item/424235148
+2025-08-28 12:20:01 | 🚗 Toyota Auris | 2017 | 179 500 kr | 87 300 km | 6 месяцев | https://www.finn.no/mobility/item/424231880
